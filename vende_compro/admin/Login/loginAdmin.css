@@ -9,7 +9,7 @@ body{
 }
 
 .item{
-
+    background: rgb(239, 222, 225);
 text-align: center;
 border: black 5px;
 }
@@ -30,44 +30,48 @@ h1{
 
 
 .contenedor_form{
-   
+padding-top: 7%;
+padding-left: 5%;    
 background: rgb(255, 255, 255);
-border-radius: 5%;
-height: 50%;
+border-radius: 14%;
+height: 40%;
 width: 60%;
 margin-left: 20%;
 margin-top: 15%;
+
   
 }
 
 
-.formulario_cuerpo{
-    padding-top: 10%;
-    padding-left: 5%;
-    
-}
+
 
 .textareaCorreo{
-    height: 15px;
+    height: 35%;
+}
+.textareaContrasena{
+    height: 50%;
 }
 
 .labels{
     font-size: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    
 }
 
 .grid_formulario{
 display: grid;
 grid-template-columns: 50% 50%;
-grid-template-rows: 50% 50%;
+grid-template-rows: 50% 50%  ;
+row-gap: 45%;
+
+ margin-top: 3%;
 }
 
-.tabla{
-    display: table;
-    
-}
+
 
 .grid_form_container_correo_label{
     background: fixed;
+    
 }
 
 .grid_form_textarea_correo{
@@ -82,4 +86,7 @@ margin-top: 3%;
 
 .grid_form_textarea_contrasena{
 margin-top: 6%;
+}
+.boton{
+    align-items: center;
 }
