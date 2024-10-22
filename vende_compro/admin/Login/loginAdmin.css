@@ -1,0 +1,70 @@
+body{
+    background: rgb(239, 222, 225);
+}
+.grid{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 500px;
+    
+}
+
+.item{
+
+text-align: center;
+border: black 5px;
+}
+
+.item-2{
+    background: rgb(239, 222, 225);
+    height: 150%;
+    width: 100%;
+    
+}
+h1{
+   text-align: center;
+    color: rgb(0, 0, 0);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    
+}
+
+
+
+.contenedor_form{
+   
+background: rgb(255, 255, 255);
+border-radius: 5%;
+height: 50%;
+width: 60%;
+margin-left: 20%;
+margin-top: 15%;
+  
+}
+
+
+.formulario_cuerpo{
+    padding-top: 10%;
+    padding-left: 5%;
+}
+
+.textareaCorreo{
+    height: 15px;
+}
+
+.labelCorreo{
+    font-size: 20px;
+}
+
+.grid_formulario{
+display: grid;
+grid-template-columns: 50% 50%;
+grid-template-rows: 50% 50%;
+}
+
+.tabla{
+    display: table;
+    
+}
+
+.titulo{
+    
+}
