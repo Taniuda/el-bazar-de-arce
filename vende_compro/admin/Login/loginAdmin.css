@@ -12,6 +12,7 @@ body{
     background: rgb(239, 222, 225);
 text-align: center;
 border: black 5px;
+margin-top: 50%;
 }
 
 .item-2{
@@ -34,10 +35,10 @@ padding-top: 7%;
 padding-left: 5%;    
 background: rgb(255, 255, 255);
 border-radius: 14%;
-height: 40%;
+height: 60%;
 width: 60%;
 margin-left: 20%;
-margin-top: 15%;
+margin-top: 5%;
 
   
 }
@@ -61,8 +62,8 @@ margin-top: 15%;
 .grid_formulario{
 display: grid;
 grid-template-columns: 50% 50%;
-grid-template-rows: 50% 50%  ;
-row-gap: 45%;
+grid-template-rows: 25% 25%  ;
+
 
  margin-top: 3%;
 }
@@ -75,18 +76,60 @@ row-gap: 45%;
 }
 
 .grid_form_textarea_correo{
-    background: fixed;
     margin-top: 2%;
+height: 50%;
 }
 
 .grid_form_container_contrasena_label{
-margin-top: 3%;
+margin-top: 2%;
     background: fixed;
 }
 
 .grid_form_textarea_contrasena{
-margin-top: 6%;
+margin-top: 2%;
+height: 50%;
 }
-.boton{
-    align-items: center;
+
+
+
+
+
+.grid_botones{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 25% 25%;
+}
+
+
+.div_botones{
+    
+   
+    width: 100%;
+    height: 100%;
+    display: flex;
+    margin: auto;
+   
+}
+.btn{
+ padding: 5%;
+    background: rgb(57, 57, 233);
+  color: beige;
+    height: 20px;
+    font-size:25px;
+    display: flex;
+    margin: auto;
+    border-radius: 6px;
+}
+
+.div_mensaje_contrasena{
+    margin-top: 20%;
+   height: 20%;
+    display: flex;
+    margin: auto;
+    background: pink;
+    
+
+}
+.p{
+    text-align: center;
 }
