@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(241, 241, 220);}
+    background-color:#FCF4DB}
 .grid{
     display: grid;
     grid-template-columns: 40% 60%;
@@ -48,12 +48,7 @@ margin-top: 1%;
 
 
 
-.textareaCorreo{
-    height: 35%;
-}
-.textareaContrasena{
-    height: 50%;
-}
+
 
 .labels{
     font-size: 30px;
@@ -66,7 +61,7 @@ display: grid;
 grid-template-columns: 50% 50%;
 grid-template-rows: 50% 50%  ;
 row-gap: 20%;
-column-gap: 1%;
+column-gap: 2%;
  
 }
 
@@ -93,7 +88,7 @@ column-gap: 1%;
     margin: auto;
     height: 100%;
     width: 28%;
-    background: rgb(57, 57, 233);
+    background: #2F9D94;
     color: rgb(255, 255, 255);
     font-size:24px;
     border-radius: 6px;
