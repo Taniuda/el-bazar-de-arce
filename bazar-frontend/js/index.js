@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/api/productos', {
+        const response = await fetch('http://localhost:3001/api/products', {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 

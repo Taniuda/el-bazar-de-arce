@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/productos/${productId}`);
+        const response = await fetch(`http://localhost:3001/api/products/${productId}`);
         if (response.ok) {
             const product = await response.json();
             displayProductDetails(product);
