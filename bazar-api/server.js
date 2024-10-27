@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 const dotenv = require('dotenv');
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
-const productosRoutes = require('./routes/productos');
+const productsRoutes = require('./routes/products');
 dotenv.config();
 
 const app = express();
@@ -34,7 +34,7 @@ app.use(async (req, res, next) => {
 
 app.use('/api/login', loginRoutes);
 app.use('/api/register', registerRoutes);
-app.use('/api/productos', productosRoutes);
+app.use('/api/products', productsRoutes);
 
 app.get('/', (req, res) => {
     res.send('Bienvenido al backend de tu proyecto e-commerce');
