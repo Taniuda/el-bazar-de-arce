@@ -4,32 +4,39 @@ document.getElementById('registroForm').addEventListener('submit', async functio
     const nombre = document.getElementById('nombre').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const messageDiv = document.getElementById('mensaje');
 
     try {
-        const response = await fetch('http://localhost:3001/api/register', { // Ajusta la URL según tu configuración
+        const response = await fetch('http://localhost:3001/api/register', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({ nombre, email, password })
         });
 
         const result = await response.json();
-        const mensaje = document.getElementById('mensaje');
-        
-        if (result.success) {
-            mensaje.textContent = 'Registro exitoso. Ahora puedes iniciar sesión.';
-            mensaje.style.color = 'green';
-            // Redireccionar o limpiar el formulario si es necesario
+
+        if (response.ok) {
+            messageDiv.textContent = 'Registro exitoso. Ahora puedes iniciar sesión.';
+            messageDiv.style.color = 'green';
+
+            // Mostrar botón para regresar al login
+            const loginButton = document.createElement('button');
+            loginButton.textContent = 'Ir a Iniciar Sesión';
+            loginButton.className = 'btn_ingresar';
+            loginButton.onclick = () => window.location.href = 'login.html';
+            messageDiv.appendChild(loginButton);
+
+            // Limpia el formulario
+            document.getElementById('registroForm').reset();
         } else {
-            mensaje.textContent = result.message;
-            mensaje.style.color = 'red';
+            messageDiv.textContent = result.message;
+            messageDiv.style.color = 'red';
         }
     } catch (error) {
         console.error('Error al registrar el usuario:', error);
-        document.getElementById('mensaje').textContent = 'Error al registrar el usuario.';
-        document.getElementById('mensaje').style.color = 'red';
+        messageDiv.textContent = 'Error al registrar el usuario.';
+        messageDiv.style.color = 'red';
     }
 });
-
-
