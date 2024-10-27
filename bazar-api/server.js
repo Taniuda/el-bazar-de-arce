@@ -7,7 +7,7 @@ const productsRoutes = require('./routes/products');
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 
@@ -18,7 +18,8 @@ const dbConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT  // Asegúrate de incluir esta línea
 };
 
 app.use(async (req, res, next) => {
@@ -37,7 +38,7 @@ app.use('/api/register', registerRoutes);
 app.use('/api/products', productsRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Bienvenido al backend de tu proyecto e-commerce');
+    res.send('Bienvenido al backend de tu proyecto bazar');
 });
 
 app.listen(PORT, () => {
