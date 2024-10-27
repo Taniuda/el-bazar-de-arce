@@ -38,10 +38,6 @@ function displayProducts(products) {
         productPrice.textContent = `$${product.precio}`;
         productItem.appendChild(productPrice);
 
-        // const productDescription = document.createElement('p');
-        // productDescription.textContent = product.descripcion;
-        // productItem.appendChild(productDescription);
-
         // Añadir un enlace a la página de detalles del producto
         const productLink = document.createElement('a');
         productLink.href = `pages/detalle-producto.html?id=${product.id}`;
@@ -57,3 +53,16 @@ function logout() {
     localStorage.removeItem('token');
     window.location.href = 'pages/login.html';
 }
+
+// JavaScript para manejar las pestañas
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Desactivar todas las pestañas
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+        // Activar la pestaña seleccionada
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+});
