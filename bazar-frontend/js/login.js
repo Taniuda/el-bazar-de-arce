@@ -37,3 +37,7 @@ function logout() {
     localStorage.removeItem('token');
     window.location.href = 'login.html';
 }
+
+function registroForm() {
+    window.location.href = 'registro.html';
+}
