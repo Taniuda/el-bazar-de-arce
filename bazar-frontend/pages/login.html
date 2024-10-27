@@ -3,22 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Iniciar Sesión - EL Bazar de Arce</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Iniciar Sesión</h2>
-        <form id="login-form">
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
-            
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" required>
-            
-            <button type="submit">Ingresar</button>
-        </form>
-        <div id="login-message"></div>
+    <div class="grid">
+        <div class="item">
+            <p class="TITULOBAZAR">EL Bazar de Arce</p>
+            <img src="../resources/LogoBA.jpeg" alt="logofoto">
+        </div>
+        <div class="item-2">
+            <p class="TITULOSESION">Iniciar sesión</p>
+            <div class="contenedor_form">
+                <form id="login-form">
+                    <div class="grid_formulario">
+                        <div class="labels">Correo electrónico</div>
+                        <input type="email" id="email" class="textarea" required>
+
+                        <div class="labels">Contraseña</div>
+                        <input type="password" id="password" class="textarea" required>
+                    </div>
+                    <div class="div_botones">
+                        <button type="submit" class="btn_ingresar">Ingresar</button>
+                        <p class="pOlvido">¿Has olvidado tu contraseña?</p>
+                        <button type="reset" class="btn_reestablecer">Reestablecer</button>
+                    </div>
+                </form>
+                <div id="login-message"></div>
+            </div>
+        </div>
     </div>
     <script src="../js/login.js"></script>
 </body>
