@@ -30,7 +30,7 @@ button:hover {
 .grid {
     display: grid;
     grid-template-columns: 40% 60%;
-    grid-template-rows: 100vh; /* Toda la altura de la ventana */
+    grid-template-rows: 100vh;
 }
 
 .item {
@@ -42,8 +42,8 @@ button:hover {
 
 .item img {
     width: 80%;
-    height: auto; /* Mantiene la proporción de la imagen */
-    max-width: 300px; /* Tamaño máximo para la imagen */
+    height: auto;
+    max-width: 300px;
 }
 
 .item-2 {
@@ -136,7 +136,7 @@ h1 {
     color: #f4fafa;
     text-align: center;
     font-weight: bold;
-    text-shadow: -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black, 3px 3px 0 black; /* Sombra para crear el borde muy engrosado */
+    text-shadow: -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black, 3px 3px 0 black;
 }
 
 img {
@@ -219,5 +219,85 @@ img {
     }
     .btn_ingresar, .btn_reestablecer {
         width: 60%;
+    }
+}
+
+/* --- NUEVOS ESTILOS PARA LA PÁGINA DE REGISTRO --- */
+.registro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #FCF4DB;
+    padding: 20px;
+}
+
+.registro-contenedor_form {
+    padding: 40px;
+    background: rgb(255, 255, 255);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.registro-labels {
+    font-size: 18px;
+    color: #333;
+    text-align: left;
+}
+
+.registro-grid_formulario {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.registro-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.registro-textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.registro-div_botones {
+    margin-top: 10px;
+}
+
+.registro-btn_ingresar {
+    padding: 12px;
+    width: 100%;
+    background-color: #2F9D94;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.registro-btn_ingresar:hover {
+    background-color: #24877b;
+}
+
+.registro-pOlvido {
+    font-size: 15px;
+    color: #555;
+    margin-top: 15px;
+}
+
+/* Ajustes de responsividad */
+@media (max-width: 768px) {
+    .registro-contenedor_form {
+        width: 90%;
+        padding: 20px;
     }
 }
