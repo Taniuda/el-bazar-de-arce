@@ -27,7 +27,10 @@ function displayProductDetails(product) {
     productDetail.innerHTML = `
         <h3>${product.nombre}</h3>
         <p>Precio: $${product.precio}</p>
+        <p>Talla: ${product.talla}</p>
+        <p>Clasificacion: ${product.clasificacion}</p>
         <p>${product.descripcion}</p>
+        <p>Estado: ${product.estado}</p>
     `;
 
     const buyButton = document.getElementById('buyButton');
