@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h2>Bienvenido a la tienda</h2>
+
+    <!-- Tab Panel -->
+    <div class="tab-container">
+        <div class="tab active" data-tab="inicio">Inicio</div>
+        <div class="tab" data-tab="mis-pedidos">Mis Pedidos</div>
+        <div class="tab" data-tab="mi-cuenta">Mi Cuenta</div>
+    </div>
+
+    <!-- Contenidos de las Pestañas -->
+    <div id="inicio" class="tab-content active">
+        <div id="productList" class="product-list"></div>
+    </div>
+    <div id="mis-pedidos" class="tab-content">
+        <h3>Mis Pedidos</h3>
+        <p>Aquí se mostrarán tus pedidos.</p>
+    </div>
+    <div id="mi-cuenta" class="tab-content">
+        <h3>Mi Cuenta</h3>
+        <p>Información de la cuenta del usuario.</p>
+        <button onclick="logout()">Cerrar Sesión</button>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // JavaScript para manejar las pestañas
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Desactivar todas las pestañas
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                // Activar la pestaña seleccionada
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
