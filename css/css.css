@@ -1,4 +1,12 @@
 /*CSS AGREGAR PRODUCTO*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+
+
 
 .gridPanelAbajo{
     grid-template-columns: 10% 10% 10% 10% ;
@@ -178,14 +186,25 @@ label{
     display: block;
 }
 
-.textarea_agregar{
-    width: 45%;
-    height: 10%;
-    margin-bottom: 2%;
-    resize: none;
-    border-radius: 20px;
-    font-size: 100%;
-    text-align: center;
+.textarea_agregar {
+    width: 80%; /* Ajusta el ancho para centrar mejor */
+    height: 30px; /* Define una altura fija */
+    margin-bottom: 20px; /* Espacio inferior */
+    resize: none; /* Evita el redimensionamiento */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 100%; /* Tamaño de fuente */
+    text-align: center; /* Centra el texto */
+    background-color: #ddd; /* Color de fondo claro */
+    border: 2px solid #444; /* Borde oscuro */
+    color: #333; /* Color del texto */
+    padding: 10px; /* Espaciado interno */
+    transition: border-color 0.3s; /* Transición para el borde */
+}
+
+/* Cambio de borde al hacer foco */
+.textarea_agregar:focus {
+    border-color: #333; /* Borde más oscuro al enfocar */
+    outline: none; /* Elimina el borde por defecto */
 }
 
 .boton_salir{
@@ -388,3 +407,160 @@ img{
 .labelFiltro{
     font-size: 20px;
 }
+
+
+
+/*CSS CUENTA*/
+
+.grid_div_formulario
+{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-row: 100%;
+   column-gap: 0;
+   width: 60%;
+   margin: auto;
+    
+}
+
+
+
+.grid_espacio{
+    width: 100%;
+    height: 100%;
+    
+   
+    
+}
+.img_cuenta_grid{
+    align-items: center;
+    width: 50%;
+    height: 40%;
+    
+    
+}
+
+.grid_datos_1{
+    
+display: grid;
+width: 100%;
+height: 50%;
+display: block;
+
+
+}
+
+
+
+.label_datos{
+    font-size: 35px;
+   margin-bottom: 3%;
+   text-align: center;
+  
+
+}
+
+.grid_datos_2{
+ width: 100%;
+ height: 50%;
+display: grid;
+display: block;
+
+
+ 
+}
+
+.etiquetas_formulario{
+    font-size: 20px ;
+    margin-top: 10px;
+}
+
+.textarea_cuenta{
+    
+    width: 80%; /* Ajusta el ancho para centrar mejor */
+    height: 30px; /* Define una altura fija */
+    margin-bottom: 20px; /* Espacio inferior */
+    resize: none; /* Evita el redimensionamiento */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 25px; /* Tamaño de fuente */
+    text-align: center; /* Centra el texto */
+    background-color: #ddd; /* Color de fondo claro */
+    border: 2px solid #444; /* Borde oscuro */
+    color: #333; /* Color del texto */
+    padding: 10px; /* Espaciado interno */
+    transition: border-color 0.3s; /* Transición para el borde */
+    
+}
+
+
+
+
+.label_cuenta_bancaria{
+    width: 20%;
+    height: 20%;
+}
+
+
+.containerimag {
+    max-width: 500px;
+    margin: auto; /* Centra el contenedor horizontalmente */
+    background-color: transparent;
+    text-align: center; /* Centra el texto dentro del contenedor */
+    padding: 20px; /* Espacio interno */
+}
+
+.contenedorimg {
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+}
+
+.textarea_agregar {
+    width: 40%; /* Ajusta el ancho */
+    
+    margin: 10px 0; /* Espacio entre elementos */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.custom-file-input {
+    display: inline-block;
+    padding: 10px 20px; /* Espaciado para el botón */
+    background-color: #f0f0f0;
+    color: #333;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0; /* Espacio entre elementos */
+    transition: background-color 0.3s ease;
+}
+
+/* Cambia el color de fondo al pasar el ratón por encima */
+.custom-file-input:hover {
+    background-color: #e0e0e0;
+}
+
+/* Oculta el input real */
+.custom-file-input input[type="file"] {
+    display: none;
+}
+
+
+.div_btn_reestablecer_cuenta_Admin{
+    margin-top: 1%;
+    width: 100%;
+    height: 8%;
+    text-align: center;
+}
+
+.btn_reestablecer_cuenta_Admin{
+    width: 20%;
+    height: 90%;
+    font-size: 25px;
+    background: red;
+    color: #fff;
+}
+
+
+
