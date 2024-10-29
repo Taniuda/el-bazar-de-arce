@@ -13,13 +13,8 @@
          </div>
        
          <div class="elemento2_filtrodiv">
-      
-            <select class="comboboxFiltro" name="categoria" id="categoria_ropa">
-                <option value="" disabled selected hidden>Filtrar</option>
-                <option value="hombre">Hombre</option>
-                <option value="mujer">Mujer</option>
-                <option value="unisex">Unisex</option>
-            </select>
+          
+        
             
         </div>
         
@@ -30,20 +25,88 @@
 </div> <!--Final del div del panel buscador-->
 
 
+
+
+<div class="ContenedorAgregar">
+
+<div class="Grid_ContenedorAgregar">
+
+<div class="grid_adjuntarImagen">
+   
+    
+    <label for="">Nombre del producto</label>
+    <textarea name="" id=""></textarea>
+ 
+    <label for="">Subir imagen</label>
+   
+    <input type="file" id="foto_producto" accept="image/*">
+
+</div>
+
+<div class="grid_agregar_atributos">
+    <label for="">Precio</label>
+   
+    <textarea name="" id=""></textarea>
+   
+    <label for="">Talla</label>
+    <select name="talla" id="">
+        <option value="" disabled selected hidden>Seleccione una talla</option>
+        <option value="chica">CH</option>
+        <option value="Mediana">M</option>
+        <option value="grande">G</option>
+        <option value="xl">XL</option>
+        <option value="xxl">XXL</option>
+        <option value="unitalla">Unitalla</option>
+    </select>
+    
+    <label for="">Estado</label>
+    <select name="" id="">
+        
+        <option value="" disabled selected hidden>Seleccione el estado</option>
+        <option value="stock">En stock</option>
+        <option value="agotado">Agotado</option>
+        <option value="remate">En remate</option>
+
+    </select>
+    
+    <label for="">Categoria</label>
+    <select name="" id="">
+        <option value="" disabled selected hidden>Seleccione la categoria</option>
+        <option value="mujer">Mujer</option>
+        <option value="hombre">Hombre</option>
+    </select>
+    
+</div>
+
+
+
+</div>
+<div class="div_botones_final">
+    <button class="boton_guardar">Guardar</button>
+    <button class="boton_salir">Salir</button>
+</div>
+</div><!--Contenedor de agregar final-->
+
+
+
+
+
+
+
 <div class="contenedor_grid_inferior">
     <div class="gridPanelAbajo">
 
        <div class="div_carrito"><button class="buttonIcono">
-           <img  src="imgMenuAdmin/carritoDesactivado.jpg" alt="imgCarrito">
+           <img  src="../imgMenuAdmin/carritoDesactivado.jpg" alt="imgCarrito">
        </button></div>
        <div class="div_home"><button class="buttonIcono">
-           <img src="imgMenuAdmin/homeActivado.jpg" alt="imgHome">
+           <img src="../imgMenuAdmin/homeActivado.jpg" alt="imgHome">
        </button></div>
        <div class="div_ofertas"><button class="buttonIcono">
-           <img src="imgMenuAdmin/ofertasDesactivado.jpg" alt="imgOferta">
+           <img src="../imgMenuAdmin/ofertasDesactivado.jpg" alt="imgOferta">
        </button></div>
        <div class="div_cuenta"><button class="buttonIcono">
-           <img src="imgMenuAdmin/cuentaDesactivado.jpg" alt="imgCuenta">
+           <img src="../imgMenuAdmin/cuentaDesactivado.jpg" alt="imgCuenta">
        </button></div>
     </div>
    </div>
