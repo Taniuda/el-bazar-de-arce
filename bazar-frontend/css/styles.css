@@ -180,6 +180,7 @@ img {
 }
 
 /* Estilos de pestañas */
+
 .tab-container {
     display: flex;
     justify-content: center;
@@ -193,19 +194,51 @@ img {
     background-color: #f1f1f1;
     border: 1px solid #ccc;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.tab img {
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
 }
 
 .tab.active {
-    background-color: #007bff;
+    background-color: #b0d0f1;
     color: white;
 }
 
-.tab-content {
-    display: none;
+.tab[data-tab="inicio"] img {
+    content: url('../resources/inicio_no_seleccionado.svg');
 }
 
-.tab-content.active {
-    display: block;
+.tab[data-tab="inicio"].active img {
+    content: url('../resources/inicio_seleccionado.svg');
+}
+
+.tab[data-tab="mis-pedidos"] img {
+    content: url('../resources/pedido_no_seleccionado.svg');
+}
+
+.tab[data-tab="mis-pedidos"].active img {
+    content: url('../resources/pedido_seleccionado.svg');
+}
+
+.tab[data-tab="mi-cuenta"] img {
+    content: url('../resources/cuenta_no_seleccionado.svg');
+}
+
+.tab[data-tab="mi-cuenta"].active img {
+    content: url('../resources/cuenta_seleccionado.svg');
+}
+
+.tab-content { 
+    display: none; 
+} 
+
+.tab-content.active { 
+    display: block; 
 }
 
 /* Responsividad */
