@@ -334,3 +334,14 @@ img {
         padding: 20px;
     }
 }
+
+.btn_agregar_producto{
+    width: 8%;
+    height: 70%;
+    margin: auto;
+    border-radius: 60px;
+    background: #00B1F0;
+    border: none;
+    color: white;
+    font-size: 40px;
+}
