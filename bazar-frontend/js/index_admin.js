@@ -12,7 +12,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 function agregar_producto() { 
-    //window.location.href = "../pages/agrega_producto.html";
+    window.location.href = "../pages/agregar_producto.html";
 }
 
 function logout() {
