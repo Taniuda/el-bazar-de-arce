@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Productos</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <div class="ContenedorAgregar">
+
+        <div class="Grid_ContenedorAgregar">
+            <div class="grid_adjuntarImagen">
+                <div class="containerimag">
+                    <div class="contenedorimg">
+                        <label for="">Nombre del producto</label>
+                        <textarea class="textarea_agregar" name="" id=""></textarea>
+                
+                        <label for="fileInput" class="custom-file-input">
+                            Seleccionar Archivos
+                            <input type="file" id="foto_producto" multiple>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid_agregar_atributos">
+                <label for="">Precio</label>
+            
+                <textarea class="textarea_agregar" name="" id=""></textarea>
+            
+                <label for="">Talla</label>
+                <select name="talla" id="">
+                    <option value="" disabled selected hidden>Seleccione una talla</option>
+                    <option value="chica">CH</option>
+                    <option value="Mediana">M</option>
+                    <option value="grande">G</option>
+                    <option value="xl">XL</option>
+                    <option value="xxl">XXL</option>
+                    <option value="unitalla">Unitalla</option>
+                </select>
+                
+                <label for="">Estado</label>
+                <select name="" id="">
+                    <option value="" disabled selected hidden>Seleccione el estado</option>
+                    <option value="stock">Disponible</option>
+                    <option value="agotado">En pedido</option>
+                    <option value="remate">Agotado</option>
+                </select>
+                
+                <label for="">Categoria</label>
+                <select name="" id="">
+                    <option value="" disabled selected hidden>Seleccione la categoria</option>
+                    <option value="mujer">Mujer</option>
+                    <option value="hombre">Hombre</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="div_botones_final">
+            <button class="boton_guardar">Guardar</button>
+            <button class="boton_salir">Salir</button>
+        </div>
+    </div>
+</body>
+</html>
