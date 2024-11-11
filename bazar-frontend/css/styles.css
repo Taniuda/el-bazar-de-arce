@@ -345,3 +345,186 @@ img {
     color: white;
     font-size: 40px;
 }
+
+/* estilos agregar_producto.html */
+/* Estilos base */
+
+.gridPanelBuscador {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 100%;
+}
+
+.elemento1_divtextAreaBuscador {
+    width: 90%;
+    height: 70%;
+    background: transparent;
+    margin: auto;
+}
+
+.textareaBuscar {
+    width: 100%;
+    height: 65%;
+    font-size: 25px;
+    resize: none;
+}
+
+.elemento2_filtrodiv {
+    width: 100%;
+    height: 40%;
+    display: block;
+}
+
+.ContenedorAgregar {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    font-size: 25px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+    margin-top: 20px;
+}
+
+.Grid_ContenedorAgregar {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 0;
+}
+
+.grid_adjuntarImagen, .grid_agregar_atributos {
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    column-gap: 0;
+}
+
+.containerimag {
+    max-width: 500px;
+    margin: auto; /* Centra el contenedor horizontalmente */
+    background-color: transparent;
+    text-align: center; /* Centra el texto dentro del contenedor */
+    padding: 20px; /* Espacio interno */
+}
+
+.contenedorimg {
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.textarea_agregar {
+    width: 80%; /* Ajusta el ancho para centrar mejor */
+    height: 30px; /* Define una altura fija */
+    margin-bottom: 20px; /* Espacio inferior */
+    resize: none; /* Evita el redimensionamiento */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 100%; /* Tamaño de fuente */
+    text-align: center; /* Centra el texto */
+    background-color: #ddd; /* Color de fondo claro */
+    border: 2px solid #444; /* Borde oscuro */
+    color: #333; /* Color del texto */
+    padding: 10px; /* Espaciado interno */
+    transition: border-color 0.3s; /* Transición para el borde */
+}
+
+/* Cambio de borde al hacer foco */
+.textarea_agregar:focus {
+    border-color: #333; /* Borde más oscuro al enfocar */
+    outline: none; /* Elimina el borde por defecto */
+}
+
+.custom-file-input {
+    display: inline-block;
+    padding: 10px 20px; /* Espaciado para el botón */
+    background-color: #f0f0f0;
+    color: #333;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0; /* Espacio entre elementos */
+    transition: background-color 0.3s ease;
+}
+
+/* Cambia el color de fondo al pasar el ratón por encima */
+.custom-file-input:hover {
+    background-color: #e0e0e0;
+}
+
+/* Oculta el input real */
+.custom-file-input input[type="file"] {
+    display: none;
+}
+
+.boton_salir, .boton_guardar {
+    height: 80%;
+    width: 25%;
+    font-size: large;
+    border-radius: 20px;
+    color: aliceblue;
+    font-size: 25px;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+}
+
+.boton_salir {
+    background: red;
+}
+
+.boton_salir:hover {
+    background: darkred; /* Nuevo color al pasar el ratón */
+}
+
+.boton_guardar {
+    background: green;
+}
+
+.boton_guardar:hover {
+    background: darkgreen; /* Nuevo color al pasar el ratón */
+}
+
+
+.div_botones_final {
+    width: 50%;
+    height: 10%;
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}
+
+select {
+    display: block;
+    padding: 1%;
+    margin-bottom: 2%;
+    font-size: 20px;
+}
+
+/* Consultas de medios para hacer la página responsiva */
+@media (max-width: 768px) {
+    .gridPanelBuscador {
+        grid-template-columns: 1fr;
+    }
+
+    .Grid_ContenedorAgregar {
+        grid-template-columns: 1fr;
+    }
+
+    .div_botones_final {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .boton_guardar, .boton_salir {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .textareaBuscar {
+        font-size: 18px;
+    }
+}
