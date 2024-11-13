@@ -1,5 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
+const multer = require('multer');
+const path = require('path');
 const dotenv = require('dotenv');
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
@@ -32,6 +34,20 @@ app.use(async (req, res, next) => {
         res.status(500).send("Error en la conexión con la base de datos");
     }
 });
+
+// Configurar almacenamiento de multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Nombre único
+    }
+});
+
+const upload = multer({ storage: storage });
+
+app.use('/uploads', express.static('uploads')); // Servir la carpeta de imágenes estáticas
 
 app.use('/api/login', loginRoutes);
 app.use('/api/register', registerRoutes);
