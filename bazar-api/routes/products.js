@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('../db'); // Asegúrate de que tu archivo db.js esté configurado correctamente
+const { verificarToken, verificarAdministrador } = require('../routes/middleware'); // Importar el middleware
 const router = express.Router();
 
 // Obtener todos los productos
@@ -16,13 +17,19 @@ router.get('/', async (req, res) => {
 });
 
 // Agregar un nuevo producto (sólo administrador)
-router.post('/', async (req, res) => {
-    const { nombre, talla, precio, clasificacion, descripcion } = req.body;
+router.post('/', verificarToken, verificarAdministrador, async (req, res) => {
+    const { nombre, talla, precio, clasificacion, descripcion, estado } = req.body;
+
+    // Validar los campos obligatorios
+    if (!estado) {
+        return res.status(400).json({ error: 'El campo estado es obligatorio' });
+    }
+
     try {
         // Ejecuta la consulta para insertar un nuevo producto
         await req.db.execute(
-            'INSERT INTO productos (nombre, talla, precio, clasificacion, descripcion) VALUES (?, ?, ?, ?, ?)', 
-            [nombre, talla, precio, clasificacion, descripcion]
+            'INSERT INTO productos (nombre, talla, precio, clasificacion, descripcion, estado) VALUES (?, ?, ?, ?, ?, ?)', 
+            [nombre || null, talla || null, precio || null, clasificacion || null, descripcion || null, estado]
         );
         // Responde con un mensaje de éxito
         res.status(201).json({ message: 'Producto agregado exitosamente' });
@@ -33,22 +40,42 @@ router.post('/', async (req, res) => {
 });
 
 // Editar un producto (sólo administrador)
-router.put('/:id', async (req, res) => {
-    const { id } = req.params;
-    const { nombre, talla, precio, clasificacion, descripcion } = req.body;
-    try {
-        // Ejecuta la consulta para actualizar un producto
-        await req.db.execute(
-            'UPDATE productos SET nombre = ?, talla = ?, precio = ?, clasificacion = ?, descripcion = ? WHERE id = ?',
-            [nombre, talla, precio, clasificacion, descripcion, id]
-        );
-        // Responde con un mensaje de éxito
-        res.json({ message: 'Producto actualizado exitosamente' });
-    } catch (error) {
-        console.error('Error al actualizar el producto:', error);
-        res.status(500).json({ error: 'Error al actualizar el producto' });
-    }
-});
+// router.put('/:id', verificarToken, verificarAdministrador, async (req, res) => {
+//     const { id } = req.params;
+//     const { nombre, talla, precio, clasificacion, descripcion, estado } = req.body;
+
+//     // Validar los campos obligatorios
+//     if (!estado) {
+//         return res.status(400).json({ error: 'El campo estado es obligatorio' });
+//     }
+
+//     try {
+//         // Ejecuta la consulta para actualizar un producto
+//         await req.db.execute(
+//             'UPDATE productos SET nombre = ?, talla = ?, precio = ?, clasificacion = ?, descripcion = ?, estado = ? WHERE id = ?',
+//             [nombre || null, talla || null, precio || null, clasificacion || null, descripcion || null, estado, id]
+//         );
+//         // Responde con un mensaje de éxito
+//         res.json({ message: 'Producto actualizado exitosamente' });
+//     } catch (error) {
+//         console.error('Error al actualizar el producto:', error);
+//         res.status(500).json({ error: 'Error al actualizar el producto' });
+//     }
+// });
+
+// // Eliminar un producto (sólo administrador)
+// router.delete('/:id', verificarToken, verificarAdministrador, async (req, res) => {
+//     const { id } = req.params;
+//     try {
+//         // Ejecuta la consulta para eliminar un producto
+//         await req.db.execute('DELETE FROM productos WHERE id = ?', [id]);
+//         // Responde con un mensaje de éxito
+//         res.json({ message: 'Producto eliminado exitosamente' });
+//     } catch (error) {
+//         console.error('Error al eliminar el producto:', error);
+//         res.status(500).json({ error: 'Error al eliminar el producto' });
+//     }
+// });
 
 // Obtener un producto por su ID
 router.get('/:id', async (req, res) => {
