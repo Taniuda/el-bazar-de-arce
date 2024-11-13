@@ -5,19 +5,27 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         window.location.href = '../pages/index_admin.html';
     });
-
+    
     const btnGuardar = document.querySelector('.boton_guardar');
     btnGuardar.addEventListener('click', async (event) => {
         event.preventDefault();
 
         // Extracción de datos del formulario
-        const nombre = document.querySelector('textarea[placeholder="Nombre del producto"]').value;
-        const precio = document.querySelector('textarea[placeholder="Precio"]').value;
-        const talla = document.querySelector('select[name="talla"]').value;
-        const estado = document.querySelector('select[name="estado"]').value;
-        const clasificacion = document.querySelector('select[name="categoria"]').value;
-        const descripcion = document.querySelector('textarea[placeholder="Descripcion"]').value;
+        const nombreElement = document.getElementById('nombre');
+        const precioElement = document.getElementById('precio');
+        const tallaElement = document.getElementById('talla');
+        const estadoElement = document.getElementById('estado');
+        const clasificacionElement = document.getElementById('clasificacion');
+        const descripcionElement = document.getElementById('descripcion');
+        const imagenElement = document.getElementById('foto_producto');
         const token = localStorage.getItem('token');
+
+        const nombre = nombreElement.value;
+        const precio = precioElement.value;
+        const talla = tallaElement.value;
+        const estado = estadoElement.value;
+        const clasificacion = clasificacionElement.value;
+        const descripcion = descripcionElement.value;
 
         // Validación de datos
         if (!nombre || !precio || !talla || !estado || !clasificacion || !descripcion) {
@@ -31,17 +39,37 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Creación del objeto de producto
-        const nuevoProducto = {
-            nombre,
-            talla,
-            precio,
-            clasificacion,
-            descripcion,
-            estado
-        };
-
         try {
+            // Subir imagen
+            const formData = new FormData();
+            formData.append('image', imagenElement.files[0]);
+
+            const imageResponse = await fetch('http://localhost:3001/api/products/upload', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            const imageData = await imageResponse.json();
+
+            if (!imageResponse.ok) {
+                alert('Error al subir la imagen: ' + (imageData.error || imageResponse.statusText));
+                return;
+            }
+
+            // Creación del objeto de producto
+            const nuevoProducto = {
+                nombre,
+                talla,
+                precio,
+                clasificacion,
+                descripcion,
+                estado,
+                imagen: imageData.filePath // Ruta de la imagen
+            };
+
             // Envío de datos a la API
             const response = await fetch('http://localhost:3001/api/products', {
                 method: 'POST',
@@ -56,13 +84,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 alert('Producto agregado exitosamente.');
-                // Limpiar los datos del formulario 
-                nombre.value = '';
-                precio.value = '';
-                talla.value = '';
-                estado.value = '';
-                clasificacion.value = '';
-                descripcion.value = '';
+
+                // Limpiar los datos del formulario
+                nombreElement.value = '';
+                precioElement.value = '';
+                tallaElement.value = '';
+                estadoElement.value = '';
+                clasificacionElement.value = '';
+                descripcionElement.value = '';
+                imagenElement.value = '';
+                
+                // Opcional: Recargar la página después de cierto tiempo
+                // setTimeout(() => {
+                //     window.location.reload();
+                // }, 2000);
 
             } else {
                 alert('Error al agregar producto: ' + (data.error || response.statusText));
