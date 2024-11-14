@@ -53,42 +53,33 @@ router.post('/', verificarToken, verificarAdministrador, async (req, res) => {
     }
 });
 
-// Ruta para actualizar la ruta de la imagen en el producto existente para usar en pagina de actualiza_imagen.html
-router.put('/updateImage/:id', verificarToken, verificarAdministrador, async (req, res) => {
-    const { id } = req.params;
-    const { imagePath } = req.body;
-
-    try {
-        await req.db.execute('UPDATE productos SET imagen = ? WHERE id = ?', [imagePath, id]);
-        res.json({ message: 'Imagen actualizada correctamente' });
-    } catch (error) {
-        console.error('Error al actualizar la imagen:', error);
-        res.status(500).json({ error: 'Error al actualizar la imagen' });
-    }
-});
-
-
-// Editar un producto (sólo administrador)
+// Ruta para actualizar los datos del producto sin modificar la imagen
 router.put('/:id', verificarToken, verificarAdministrador, async (req, res) => {
     const { id } = req.params;
-    const { nombre, talla, precio, clasificacion, descripcion, estado } = req.body;
+    const { nombre, talla, precio, clasificacion, descripcion, estado, imagePath } = req.body;
 
     if (!nombre || !precio || !talla || !estado || !clasificacion || !descripcion) {
         return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
     try {
-        // Actualizar los datos del producto sin modificar la imagen
-        await req.db.execute(
-            'UPDATE productos SET nombre = ?, talla = ?, precio = ?, clasificacion = ?, descripcion = ?, estado = ? WHERE id = ?',
-            [nombre, talla, precio, clasificacion, descripcion, estado, id]
-        );
+        // Si hay imagePath, actualiza también la imagen
+        const updateQuery = imagePath
+            ? 'UPDATE productos SET nombre = ?, talla = ?, precio = ?, clasificacion = ?, descripcion = ?, estado = ?, imagen = ? WHERE id = ?'
+            : 'UPDATE productos SET nombre = ?, talla = ?, precio = ?, clasificacion = ?, descripcion = ?, estado = ? WHERE id = ?';
+
+        const params = imagePath
+            ? [nombre, talla, precio, clasificacion, descripcion, estado, imagePath, id]
+            : [nombre, talla, precio, clasificacion, descripcion, estado, id];
+
+        await req.db.execute(updateQuery, params);
         res.json({ message: 'Producto actualizado exitosamente' });
     } catch (error) {
         console.error('Error al actualizar el producto:', error);
         res.status(500).json({ error: 'Error al actualizar el producto' });
     }
 });
+
 
 // Eliminar un producto (sólo administrador)
 // router.delete('/:id', verificarToken, verificarAdministrador, async (req, res) => {
@@ -122,5 +113,19 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ error: 'Error al obtener el producto' });
     }
 });
+
+// Ruta para actualizar la ruta de la imagen en el producto existente para usar en pagina de actualiza_imagen.html
+// router.put('/updateImage/:id', verificarToken, verificarAdministrador, async (req, res) => {
+//     const { id } = req.params;
+//     const { imagePath } = req.body;
+
+//     try {
+//         await req.db.execute('UPDATE productos SET imagen = ? WHERE id = ?', [imagePath, id]);
+//         res.json({ message: 'Imagen actualizada correctamente' });
+//     } catch (error) {
+//         console.error('Error al actualizar la imagen:', error);
+//         res.status(500).json({ error: 'Error al actualizar la imagen' });
+//     }
+// });
 
 module.exports = router;
