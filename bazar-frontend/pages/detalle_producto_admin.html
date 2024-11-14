@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="product-name"></h1>
+        <div class="product-container">
+            <div class="product-detail">
+                <img id="product-image" src="" alt="Imagen del producto">
+                <div class="product-info">
+                    <p><strong>Precio:</strong> $<span id="product-price"></span></p>
+                    <p><strong>Talla:</strong> <span id="product-size"></span></p>
+                    <p><strong>Estado:</strong> <span id="product-status"></span></p>
+                    <p><strong>Categoría:</strong> <span id="product-category"></span></p>
+                    <p><strong>Descripción:</strong></p>
+                    <p id="product-description"></p>
+                </div>
+            </div>
+
+            <!-- Contenedor para el formulario de modificación -->
+            <div id="modify-container" class="modify-container" style="display: none;">
+                <h2>Modificar Producto</h2>
+                <form id="modify-form">
+                    <label class="registro-labels" for="modify-name">Nombre</label>
+                    <textarea class="textarea_agregar" id="modify-name" placeholder="Nombre del producto"></textarea>
+                    
+                    <label for="modify-price">Precio</label>
+                    <textarea class="textarea_agregar" id="modify-price" placeholder="Precio"></textarea>
+                    
+                    <label for="modify-size">Talla</label>
+                    <select id="modify-size">
+                        <option value="chica">CH</option>
+                        <option value="mediana">M</option>
+                        <option value="grande">G</option>
+                        <option value="xl">XL</option>
+                        <option value="xxl">XXL</option>
+                        <option value="unitalla">Unitalla</option>
+                    </select>
+                    
+                    <label for="modify-status">Estado</label>
+                    <select id="modify-status">
+                        <option value="disponible">Disponible</option>
+                        <option value="agotado">Agotado</option>
+                        <option value="vendido">Vendido</option>
+                    </select>
+                    
+                    <label for="modify-category">Categoría</label>
+                    <select id="modify-category">
+                        <option value="mujer">Mujer</option>
+                        <option value="hombre">Hombre</option>
+                        <option value="niño">Niño</option>
+                        <option value="niña">Niña</option>
+                    </select>
+                    
+                    <label for="modify-description">Descripción</label>
+                    <textarea class="textarea_agregar" id="modify-description" placeholder="Descripción"></textarea>
+                    
+                    <button type="submit" class="btn">Actualizar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Agregar botones de acción -->
+        <div class="action-buttons">
+            <button id="modify-btn" class="btn-modificar">Modificar</button>
+            <button id="delete-btn" class="btn-eliminar">Eliminar</button>
+            <button id="btn-regresar" class="btn-regresar" onclick="regresar_index()">Regresar</button>
+        </div>
+    </div>
+
+    <!-- Incluye el archivo JavaScript -->
+    <script src="../js/detalle_producto_admin.js"></script>
+</body>
+</html>
