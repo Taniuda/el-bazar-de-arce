@@ -3,6 +3,7 @@ const db = require('../db');
 const { verificarToken, verificarAdministrador } = require('../routes/middleware');
 const multer = require('multer'); // Importar multer para manejar la subida de archivos
 const path = require('path');
+const fs = require('fs');
 const router = express.Router();
 
 // Configurar almacenamiento de multer
@@ -82,16 +83,35 @@ router.put('/:id', verificarToken, verificarAdministrador, async (req, res) => {
 
 
 // Eliminar un producto (sólo administrador)
-// router.delete('/:id', verificarToken, verificarAdministrador, async (req, res) => {
-//     const { id } = req.params;
-//     try {
-//         await req.db.execute('DELETE FROM productos WHERE id = ?', [id]);
-//         res.json({ message: 'Producto eliminado exitosamente' });
-//     } catch (error) {
-//         console.error('Error al eliminar el producto:', error);
-//         res.status(500).json({ error: 'Error al eliminar el producto' });
-//     }
-// });
+router.delete('/:id', verificarToken, verificarAdministrador, async (req, res) => {
+    const { id } = req.params;
+    try {
+        // Obtener la ruta de la imagen asociada
+        const [result] = await req.db.execute('SELECT imagen FROM productos WHERE id = ?', [id]);
+        if (result.length === 0) {
+            return res.status(404).json({ error: 'Producto no encontrado' });
+        }
+
+        const imagePath = result[0].imagen;
+
+        // Eliminar el producto de la base de datos
+        await req.db.execute('DELETE FROM productos WHERE id = ?', [id]);
+
+        // Eliminar la imagen asociada
+        if (imagePath) {
+            const fullImagePath = path.join(__dirname, '..', imagePath);
+            fs.unlink(fullImagePath, (err) => {
+                if (err) {
+                    console.error('Error al eliminar la imagen:', err);
+                }
+            });
+        }
+        res.json({ message: 'Producto eliminado exitosamente, junto con su imagen asociada' });
+    } catch (error) {
+        console.error('Error al eliminar el producto:', error);
+        res.status(500).json({ error: 'Error al eliminar el producto' });
+    }
+});
 
 // Obtener un producto por su ID
 router.get('/:id', async (req, res) => {
