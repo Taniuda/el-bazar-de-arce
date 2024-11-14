@@ -53,6 +53,21 @@ router.post('/', verificarToken, verificarAdministrador, async (req, res) => {
     }
 });
 
+// Ruta para actualizar la ruta de la imagen en el producto existente para usar en pagina de actualiza_imagen.html
+router.put('/updateImage/:id', verificarToken, verificarAdministrador, async (req, res) => {
+    const { id } = req.params;
+    const { imagePath } = req.body;
+
+    try {
+        await req.db.execute('UPDATE productos SET imagen = ? WHERE id = ?', [imagePath, id]);
+        res.json({ message: 'Imagen actualizada correctamente' });
+    } catch (error) {
+        console.error('Error al actualizar la imagen:', error);
+        res.status(500).json({ error: 'Error al actualizar la imagen' });
+    }
+});
+
+
 // Editar un producto (sólo administrador)
 // router.put('/:id', verificarToken, verificarAdministrador, async (req, res) => {
 //     const { id } = req.params;
