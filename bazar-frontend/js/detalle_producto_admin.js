@@ -41,29 +41,66 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('modify-form').addEventListener('submit', async (event) => {
             event.preventDefault();
 
+            const nombre = document.getElementById('modify-name').value;
+            const precio = document.getElementById('modify-price').value;
+            const talla = document.getElementById('modify-size').value;
+            const estado = document.getElementById('modify-status').value;
+            const clasificacion = document.getElementById('modify-category').value;
+            const descripcion = document.getElementById('modify-description').value;
+            const imagenElement = document.getElementById('foto_producto');
+            const token = localStorage.getItem('token');
+
+            let imagePath = null;
+
+            if (imagenElement.files.length > 0) {
+                // Subir la imagen primero
+                const formData = new FormData();
+                formData.append('image', imagenElement.files[0]);
+
+                const uploadResponse = await fetch('http://localhost:3001/api/products/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+
+                const uploadData = await uploadResponse.json();
+
+                if (!uploadResponse.ok) {
+                    alert('Error al subir la imagen: ' + (uploadData.error || uploadResponse.statusText));
+                    return;
+                }
+
+                imagePath = uploadData.filePath;
+            }
+
             const updatedProduct = {
-                nombre: document.getElementById('modify-name').value,
-                precio: document.getElementById('modify-price').value,
-                talla: document.getElementById('modify-size').value,
-                estado: document.getElementById('modify-status').value,
-                clasificacion: document.getElementById('modify-category').value,
-                descripcion: document.getElementById('modify-description').value
+                nombre,
+                precio,
+                talla,
+                estado,
+                clasificacion,
+                descripcion,
+                imagePath
             };
 
             const updateResponse = await fetch(`http://localhost:3001/api/products/${productId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(updatedProduct)
             });
+
+            const updateData = await updateResponse.json();
 
             if (updateResponse.ok) {
                 alert('Producto actualizado exitosamente.');
                 window.location.reload();
             } else {
-                alert('Error al actualizar el producto');
+                alert('Error al actualizar el producto: ' + (updateData.error || updateResponse.statusText));
             }
         });
     } catch (error) {
@@ -71,6 +108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         alert('Error al cargar los detalles del producto');
     }
 });
+
 
 function regresar_index() { 
     window.location.href = "../pages/index_admin.html";
