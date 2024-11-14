@@ -55,7 +55,7 @@ function displayProducts(products) {
 
         // Añadir un enlace a la página de detalles del producto administrador
         const productLink = document.createElement('a');
-        productLink.href = `pages/detalle-producto.html?id=${product.id}`;
+        productLink.href = `detalle_producto_admin.html?id=${product.id}`;
         productLink.textContent = 'Ver detalles';
         productLink.className = 'product-link';
         productItem.appendChild(productLink);
