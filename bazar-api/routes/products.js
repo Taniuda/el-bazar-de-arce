@@ -69,25 +69,26 @@ router.put('/updateImage/:id', verificarToken, verificarAdministrador, async (re
 
 
 // Editar un producto (sólo administrador)
-// router.put('/:id', verificarToken, verificarAdministrador, async (req, res) => {
-//     const { id } = req.params;
-//     const { nombre, talla, precio, clasificacion, descripcion, estado, imagen } = req.body;
+router.put('/:id', verificarToken, verificarAdministrador, async (req, res) => {
+    const { id } = req.params;
+    const { nombre, talla, precio, clasificacion, descripcion, estado } = req.body;
 
-//     if (!estado) {
-//         return res.status(400).json({ error: 'El campo estado es obligatorio' });
-//     }
+    if (!nombre || !precio || !talla || !estado || !clasificacion || !descripcion) {
+        return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    }
 
-//     try {
-//         await req.db.execute(
-//             'UPDATE productos SET nombre = ?, talla = ?, precio = ?, clasificacion = ?, descripcion = ?, estado = ?, imagen = ? WHERE id = ?',
-//             [nombre || null, talla || null, precio || null, clasificacion || null, descripcion || null, estado, imagen || null, id]
-//         );
-//         res.json({ message: 'Producto actualizado exitosamente' });
-//     } catch (error) {
-//         console.error('Error al actualizar el producto:', error);
-//         res.status(500).json({ error: 'Error al actualizar el producto' });
-//     }
-// });
+    try {
+        // Actualizar los datos del producto sin modificar la imagen
+        await req.db.execute(
+            'UPDATE productos SET nombre = ?, talla = ?, precio = ?, clasificacion = ?, descripcion = ?, estado = ? WHERE id = ?',
+            [nombre, talla, precio, clasificacion, descripcion, estado, id]
+        );
+        res.json({ message: 'Producto actualizado exitosamente' });
+    } catch (error) {
+        console.error('Error al actualizar el producto:', error);
+        res.status(500).json({ error: 'Error al actualizar el producto' });
+    }
+});
 
 // Eliminar un producto (sólo administrador)
 // router.delete('/:id', verificarToken, verificarAdministrador, async (req, res) => {
