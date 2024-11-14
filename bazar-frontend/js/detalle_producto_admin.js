@@ -103,6 +103,29 @@ document.addEventListener('DOMContentLoaded', async () => {
                 alert('Error al actualizar el producto: ' + (updateData.error || updateResponse.statusText));
             }
         });
+
+        document.getElementById('delete-btn').addEventListener('click', async () => {
+            if (!confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+                return;
+            }
+
+            const deleteResponse = await fetch(`http://localhost:3001/api/products/${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+
+            if (deleteResponse.ok) {
+                alert('Producto eliminado exitosamente.');
+                window.location.href = '../pages/index_admin.html';
+            } else {
+                const data = await deleteResponse.json();
+                alert('Error al eliminar el producto: ' + (data.error || deleteResponse.statusText));
+                window.location.href = '../pages/index_admin.html';
+            }
+        });
+
     } catch (error) {
         console.error(error);
         alert('Error al cargar los detalles del producto');
