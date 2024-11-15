@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <h2>Administra la tienda</h2>
+    <h1>Administra la tienda</h1>
 
     <!-- Tab Panel -->
     <div class="tab-container">
@@ -29,17 +29,21 @@
     <div id="inicio" class="tab-content active">
         <div>
             <button class="btn_agregar_producto" onclick="agregar_producto()">+</button>
-            <h3>Productos</h3>
+            <h2>Productos</h2>
         </div>
         <div id="productList" class="product-list"></div>
     </div>
     <div id="mis-pedidos" class="tab-content">
-        <h3>Mis Pedidos</h3>
+        <h2>Mis Pedidos</h2>
         <p>Aquí se mostrarán tus pedidos.</p>
     </div>
     <div id="mi-cuenta" class="tab-content">
-        <h3>Mi Cuenta</h3>
-        <p>Información de la cuenta del usuario.</p>
+        <h2>Mi Cuenta</h2>
+        <h3>Hola</h3>
+        <h3 id="label-rol">Rol de usuario</h3>
+        <h3 id="label-nombre">Nombre usuario</h3>
+        <p>Tu correo es:</p>
+        <h3 id="label-email">email</h3>
         <button onclick="logout()">Cerrar Sesión</button>
     </div>
 
