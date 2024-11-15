@@ -20,6 +20,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('Error al conectar con la API:', error);
     }
+
+    //try para obtener los datos del usuario
+    try {
+        const response = await fetch('http://localhost:3001/api/user/me', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al obtener los datos del usuario');
+        }
+
+        const user = await response.json();
+
+        document.getElementById('label-rol').textContent = user.rol;
+        document.getElementById('label-nombre').textContent = user.nombre;
+        document.getElementById('label-email').textContent = user.email;
+        
+    } catch (error) {
+        console.error(error);
+        alert('Error al cargar los datos del usuario');
+    }
 });
 
 function displayProducts(products) {
