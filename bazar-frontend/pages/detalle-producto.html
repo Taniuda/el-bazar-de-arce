@@ -7,9 +7,29 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <h2>Detalles del Producto</h2>
-    <div id="productDetail" class="product-detail"></div>
-    <button id="buyButton">Comprar</button>
+    <div class="container">
+        <h1 id="product-name"></h1>
+        <div class="product-container">
+            <div class="product-detail">
+                <img id="product-image" src="" alt="Imagen del producto">
+                <div class="product-info">
+                    <p><strong>Precio:</strong> $<span id="product-price"></span></p>
+                    <p><strong>Talla:</strong> <span id="product-size"></span></p>
+                    <p><strong>Estado:</strong> <span id="product-status"></span></p>
+                    <p><strong>Categoría:</strong> <span id="product-category"></span></p>
+                    <p><strong>Descripción:</strong></p>
+                    <p id="product-description"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agregar botones de acción -->
+        <div class="action-buttons">
+            <button id="modify-btn" class="btn-modificar">Comprar</button>
+            <button id="btn-regresar" class="btn-regresar" onclick="regresar_index()">Regresar</button>
+        </div>
+    </div>
+
     <script src="../js/detalle-producto.js"></script>
 </body>
 </html>
