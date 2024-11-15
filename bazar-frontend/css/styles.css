@@ -162,6 +162,18 @@ img {
     text-align: center;
 }
 
+.product-image { 
+    width: 120px; 
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.pagination { 
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .product-item h3 {
     font-size: 18px;
     margin: 10px 0;
@@ -563,14 +575,14 @@ select {
 }
 
 .product-detail img {
-    max-width: 100%;
+    max-width: 30%;
     height: auto;
     border-radius: 8px;
     margin-bottom: 20px;
 }
 
 .product-info {
-    text-align: left;
+    text-align: center;
     width: 100%;
 }
 
