@@ -1,27 +1,11 @@
-//Conexion con el api
+// --------------Funcion para mostrar los datos de usuario-------------
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
     if (!token) {
         alert('Debes iniciar sesión para acceder a esta página.');
-        window.location.href = 'pages/login.html';
+        window.location.href = 'login.html';
         return;
     }
-    //try para obtener los productos
-    try {
-        const response = await fetch('http://localhost:3001/api/products', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-
-        if (response.ok) {
-            const products = await response.json();
-            displayProducts(products);
-        } else {
-            console.error('Error al obtener los productos:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error al conectar con la API:', error);
-    }
-
     //try para obtener los datos del usuario
     try {
         const response = await fetch('http://localhost:3001/api/user/me', {
@@ -48,6 +32,77 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+//------------------Mostrar productos y paginacion--------------------
+let currentPage = 1;
+
+async function fetchProducts(page) {
+    try {
+        const response = await fetch(`http://localhost:3001/api/products?page=${page}&limit=10`);
+        const data = await response.json();
+        displayProducts(data.productos);
+        setupPagination(data.totalPages);
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
+    }
+}
+
+function displayProducts(products) {
+    const productList = document.getElementById('productList');
+    productList.innerHTML = ''; // Limpia la lista antes de agregar nuevos productos
+
+    products.forEach(product => {
+        const productItem = document.createElement('div');
+        productItem.className = 'product-item';
+
+        const productImage = document.createElement('img');
+        productImage.src = `http://localhost:3001${product.imagen}`;
+        productImage.alt = product.nombre;
+        productImage.className = 'product-image';
+        productImage.loading = 'lazy';
+        productItem.appendChild(productImage);
+
+        const productName = document.createElement('h3');
+        productName.textContent = product.nombre;
+        productItem.appendChild(productName);
+
+        const productPrice = document.createElement('span');
+        productPrice.textContent = `$${product.precio}`;
+        productItem.appendChild(productPrice);
+
+        // Añadir un enlace a la página de detalles del producto
+        const productLink = document.createElement('a');
+        productLink.href = `detalle_producto_admin.html?id=${product.id}`;
+        productLink.textContent = 'Ver detalles';
+        productLink.className = 'product-link';
+        productItem.appendChild(productLink);
+
+        productList.appendChild(productItem);
+    });
+}
+
+function setupPagination(totalPages) {
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = ''; // Limpia la paginación antes de agregar nuevas páginas
+
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.className = 'page-button';
+        if (i === currentPage) {
+            pageButton.classList.add('active');
+        }
+        pageButton.addEventListener('click', () => {
+            currentPage = i;
+            fetchProducts(currentPage);
+        });
+        pagination.appendChild(pageButton);
+    }
+}
+
+// Inicializar la carga de productos
+fetchProducts(currentPage);
+//-------------------------------------------------------------
+
 // JavaScript para manejar las pestañas
 document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
@@ -61,39 +116,13 @@ document.querySelectorAll('.tab').forEach(tab => {
     });
 });
 
-//Mostrar los productos
-function displayProducts(products) {
-    const productList = document.getElementById('productList');
-    productList.innerHTML = ''; // Limpia la lista antes de agregar nuevos productos
-
-    products.forEach(product => {
-        const productItem = document.createElement('div');
-        productItem.className = 'product-item';
-
-        const productName = document.createElement('h3');
-        productName.textContent = product.nombre;
-        productItem.appendChild(productName);
-
-        const productPrice = document.createElement('span');
-        productPrice.textContent = `$${product.precio}`;
-        productItem.appendChild(productPrice);
-
-        // Añadir un enlace a la página de detalles del producto administrador
-        const productLink = document.createElement('a');
-        productLink.href = `detalle_producto_admin.html?id=${product.id}`;
-        productLink.textContent = 'Ver detalles';
-        productLink.className = 'product-link';
-        productItem.appendChild(productLink);
-
-        productList.appendChild(productItem);
-    });
-}
-
+// Funcion para abrir pagina agregar_producto
 function agregar_producto() { 
     window.location.href = "../pages/agregar_producto_admin.html";
 }
 
+// Función para cerrar sesión
 function logout() {
     localStorage.removeItem('token');
-    window.location.href = '../pages/login.html';
+    window.location.href = 'login.html';
 }
