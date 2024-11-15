@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const productsRoutes = require('./routes/products');
+const usersRoutes = require('./routes/users')
 dotenv.config();
 
 const app = express();
@@ -52,6 +53,7 @@ app.use('/uploads', express.static('uploads')); // Servir la carpeta de imágene
 app.use('/api/login', loginRoutes);
 app.use('/api/register', registerRoutes);
 app.use('/api/products', productsRoutes);
+app.use('/api/user', usersRoutes);
 
 app.get('/', (req, res) => {
     res.send('Bienvenido al backend de tu proyecto bazar');
