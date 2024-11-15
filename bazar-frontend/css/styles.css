@@ -672,3 +672,27 @@ select {
 .btn-regresar:hover {
     background-color: #e68a00;
 }
+
+#mi-cuenta {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#mi-cuenta h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+}
+
+#label-rol, #label-nombre, #label-email {
+    color: #007BFF; /* Resaltar en azul */
+    font-weight: bold;
+    background-color: #ffe17d;
+    padding: 5px;
+    border-radius: 3px;
+}
