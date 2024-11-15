@@ -48,7 +48,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.use('/uploads', express.static('uploads')); // Servir la carpeta de imágenes estáticas
+// Servir la carpeta de imágenes estáticas
+//app.use('/uploads', express.static('uploads'));
+
+// Configurar el servidor para servir archivos estáticos (imágenes) con encabezados de control de caché
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
+    maxAge: '1d', // Las imágenes se almacenarán en caché durante 1 día
+    setHeaders: (res, path) => {
+        res.setHeader('Cache-Control', 'public, max-age=86400'); // 86400 segundos = 1 día
+    }
+}));
 
 app.use('/api/login', loginRoutes);
 app.use('/api/register', registerRoutes);
