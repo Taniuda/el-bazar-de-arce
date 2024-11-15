@@ -19,10 +19,30 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Obtener todos los productos
+// router.get('/', async (req, res) => {
+//     try {
+//         const [productos] = await req.db.execute('SELECT * FROM productos');
+//         res.json(productos);
+//     } catch (error) {
+//         console.error('Error al obtener los productos:', error);
+//         res.status(500).json({ error: 'Error al obtener los productos' });
+//     }
+// });
+
+// Obtener todos los productos con limite de 10
 router.get('/', async (req, res) => {
+    const page = parseInt(req.query.page) || 1; // Página actual, predeterminada a 1 si no se proporciona
+    const limit = parseInt(req.query.limit) || 10; // Número de productos por página, predeterminado a 10
+
+    const offset = (page - 1) * limit;
+
     try {
-        const [productos] = await req.db.execute('SELECT * FROM productos');
-        res.json(productos);
+        const [productos] = await req.db.execute('SELECT * FROM productos LIMIT ? OFFSET ?', [limit, offset]);
+        const [countResult] = await req.db.execute('SELECT COUNT(*) AS count FROM productos');
+        const totalProducts = countResult[0].count;
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        res.json({ productos, totalPages });
     } catch (error) {
         console.error('Error al obtener los productos:', error);
         res.status(500).json({ error: 'Error al obtener los productos' });
