@@ -1,41 +1,39 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
     const productId = params.get('id');
-    const productDetail = document.getElementById('productDetail');
 
     if (!productId) {
-        productDetail.textContent = 'Producto no encontrado';
+        alert('ID de producto no encontrado');
         return;
     }
 
     try {
-        const response = await fetch(`http://localhost:3001/api/products/${productId}`);
-        if (response.ok) {
-            const product = await response.json();
-            displayProductDetails(product);
-        } else {
-            productDetail.textContent = 'Error al cargar el producto';
+        const response = await fetch(`http://localhost:3001/api/products/${productId}`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al obtener los detalles del producto');
         }
+
+        const product = await response.json();
+
+        document.getElementById('product-name').textContent = product.nombre;
+        document.getElementById('product-image').src = `http://localhost:3001${product.imagen}`;
+        document.getElementById('product-price').textContent = product.precio;
+        document.getElementById('product-size').textContent = product.talla;
+        document.getElementById('product-status').textContent = product.estado;
+        document.getElementById('product-category').textContent = product.clasificacion;
+        document.getElementById('product-description').textContent = product.descripcion;
+
     } catch (error) {
-        console.error('Error al conectar con la API:', error);
-        productDetail.textContent = 'Error al conectar con la API';
+        console.error(error);
+        alert('Error al cargar los detalles del producto');
     }
 });
 
-function displayProductDetails(product) {
-    const productDetail = document.getElementById('productDetail');
-    productDetail.innerHTML = `
-        <h3>${product.nombre}</h3>
-        <p>Precio: $${product.precio}</p>
-        <p>Talla: ${product.talla}</p>
-        <p>Clasificacion: ${product.clasificacion}</p>
-        <p>${product.descripcion}</p>
-        <p>Estado: ${product.estado}</p>
-    `;
-
-    const buyButton = document.getElementById('buyButton');
-    buyButton.addEventListener('click', () => {
-        alert(`Producto ${product.nombre} agregado al carrito de compras.`);
-        // Aquí podrías agregar la lógica para añadir el producto al carrito
-    });
+function regresar_index() { 
+    window.location.href = "../index.html";
 }
