@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="product-name"></h1>
+        <div class="product-container">
+            <div class="product-detail">
+                <div class="product-info">
+                    <p><strong>Pedido ID:</strong> <span id="order_id"></span></p>
+                    <p><strong>Usuario ID :</strong> <span id="user_id"></span></p>
+                    <p><strong>Producto ID:</strong> <span id="product_id"></span></p>
+                    <p><strong>Total:</strong> <span id="order_total"></span></p>
+                    <p><strong>Estado:</strong> <span id="order-status"></span></p>
+                    <p><strong>Fecha:</strong> <span id="order-date"></span></p>
+                </div>
+            </div>
+
+            <div class="product-detail">
+                <img id="product-image" src="" alt="Imagen del producto">
+                <div class="product-info">
+                    <p><strong>Precio:</strong> $<span id="product-price"></span></p>
+                    <p><strong>Talla:</strong> <span id="product-size"></span></p>
+                    <p><strong>Estado:</strong> <span id="product-status"></span></p>
+                    <p><strong>Categoría:</strong> <span id="product-category"></span></p>
+                    <p><strong>Descripción:</strong></p>
+                    <p id="product-description"></p>
+                    <p id="mensaje-compra" style="display: none;">Este producto está en proceso de compra</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenedor para el formulario de modificación -->
+        <div id="modify-container" class="modify-container" style="display: none;">
+            <h2>Modificar Pedido</h2>
+            <form id="modify-form">
+                
+                <label for="modify-status">Estado</label>
+                <select id="modify-status">
+                    <option value="pendiente">Pendiente</option>
+                    <option value="pagado">Pagado</option>
+                    <option value="enviado">Enviado</option>
+                    <option value="entregado">Entregado</option>
+                </select>
+                
+                <button type="submit" class="btn">Actualizar</button>
+            </form>
+        </div>
+
+        <!-- Agregar botones de acción -->
+        <div class="action-buttons">
+            <button id="modify-btn" class="btn-modificar">Modificar</button>
+            <button id="delete-btn" class="btn-eliminar">Eliminar</button>
+            <button id="btn-regresar" class="btn-regresar" onclick="regresar_index()">Regresar</button>
+        </div>
+    </div>
+
+    <!-- Incluye el archivo JavaScript -->
+    <script src="../js/actualizar_pedido_admin.js"></script>
+</body>
+</html>
