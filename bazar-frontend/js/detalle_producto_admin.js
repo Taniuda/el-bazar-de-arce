@@ -28,6 +28,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('product-category').textContent = product.clasificacion;
         document.getElementById('product-description').textContent = product.descripcion;
 
+        // Mostrar el mensaje si el estado es diferente a disponible 
+        if (product.estado !== 'disponible') { 
+            document.getElementById('mensaje-compra').style.display = 'block';
+        }
+
         document.getElementById('modify-btn').addEventListener('click', () => {
             document.getElementById('modify-container').style.display = 'block';
             document.getElementById('modify-name').value = product.nombre;
