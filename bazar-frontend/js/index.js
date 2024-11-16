@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'pages/login.html';
         return;
     }
-    //try para obtener los datos del usuario
+
+    // Obtener los datos del usuario
     try {
         const response = await fetch('http://localhost:3001/api/user/me', {
             method: 'GET',
@@ -21,7 +22,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const user = await response.json();
 
-        //document.getElementById('product-name').textContent = product.nombre;
         document.getElementById('label-rol').textContent = user.rol;
         document.getElementById('label-nombre').textContent = user.nombre;
         document.getElementById('label-email').textContent = user.email;
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         alert('Error al cargar los datos del usuario');
     }
 
-    //try para obtener las ordenes del usuario
+    // Obtener las ordenes del usuario
     try {
         const response = await fetch('http://localhost:3001/api/orders', {
             headers: {
@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('Error al obtener los pedidos:', error);
     }
-
 });
 
 //------------------Mostrar productos y paginacion--------------------
@@ -120,6 +119,7 @@ function setupPagination(totalPages) {
 
 // Inicializar la carga de productos
 fetchProducts(currentPage);
+
 //-------------------------------------------------------------
 
 // Función para cerrar sesión
@@ -179,6 +179,34 @@ function displayOrders(orders) {
         orderProductLink.textContent = 'Ver producto';
         orderProductLink.className = 'product-link';
         orderItem.appendChild(orderProductLink);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Cancelar Pedido';
+        deleteButton.className = 'btn-eliminar';
+        deleteButton.addEventListener('click', async () => {
+            try {
+                const response = await fetch(`http://localhost:3001/api/orders/${order.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ estado: 'cancelado' })
+                });
+
+                if (response.ok) {
+                    alert('Pedido cancelado con éxito');
+                    // Actualizar la lista de pedidos para reflejar el cambio
+                    displayOrders(orders.filter(o => o.id !== order.id));
+                } else {
+                    alert('Error al cancelar el pedido: ' + response.statusText);
+                }
+            } catch (error) {
+                console.error('Error al cancelar el pedido:', error);
+                alert('Error al cancelar el pedido');
+            }
+        });
+        orderItem.appendChild(deleteButton);
 
         orderList.appendChild(orderItem);
     });
