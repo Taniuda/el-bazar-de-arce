@@ -7,6 +7,7 @@ const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const productsRoutes = require('./routes/products');
 const usersRoutes = require('./routes/users')
+const ordersRoutes = require('./routes/orders');
 dotenv.config();
 
 const app = express();
@@ -63,6 +64,7 @@ app.use('/api/login', loginRoutes);
 app.use('/api/register', registerRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/user', usersRoutes);
+app.use('/api/orders', ordersRoutes);
 
 app.get('/', (req, res) => {
     res.send('Bienvenido al backend de tu proyecto bazar');
