@@ -33,4 +33,15 @@ router.post('/', verificarToken, async (req, res) => {
     }
 });
 
+// Ruta para obtener todos los pedidos
+router.get('/', verificarToken, async (req, res) => {
+    try {
+        const [pedidos] = await req.db.execute('SELECT * FROM pedidos');
+        res.json(pedidos);
+    } catch (error) {
+        console.error('Error al obtener los pedidos:', error);
+        res.status(500).json({ error: 'Error al obtener los pedidos' });
+    }
+});
+
 module.exports = router;
