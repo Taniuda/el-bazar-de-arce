@@ -30,6 +30,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error(error);
         alert('Error al cargar los datos del usuario');
     }
+
+    //try para obtener las ordenes del usuario
+    try {
+        const response = await fetch('http://localhost:3001/api/orders', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al obtener los pedidos');
+        }
+
+        const orders = await response.json();
+        displayOrders(orders);
+    } catch (error) {
+        console.error('Error al obtener los pedidos:', error);
+    }
+
 });
 
 //------------------Mostrar productos y paginacion--------------------
@@ -125,4 +144,47 @@ function agregar_producto() {
 function logout() {
     localStorage.removeItem('token');
     window.location.href = 'login.html';
+}
+
+//-----------------------------Lista de ordenes
+function displayOrders(orders) {
+    const orderList = document.getElementById('orderList');
+    orderList.innerHTML = ''; // Limpia la lista antes de agregar nuevos pedidos
+
+    orders.forEach(order => {
+        const orderItem = document.createElement('div');
+        orderItem.className = 'product-item';
+
+        const orderId = document.createElement('h3');
+        orderId.textContent = `Pedido ID: ${order.id}`;
+        orderItem.appendChild(orderId);
+
+        const userId = document.createElement('p');
+        userId.textContent = `Usuario ID: ${order.usuario_id}`;
+        orderItem.appendChild(userId);
+
+        const productId = document.createElement('p');
+        productId.textContent = `Producto ID: ${order.producto_id}`;
+        orderItem.appendChild(productId);
+
+        const total = document.createElement('p');
+        total.textContent = `Total: $${order.total}`;
+        orderItem.appendChild(total);
+
+        const status = document.createElement('p');
+        status.textContent = `Estado: ${order.estado}`;
+        orderItem.appendChild(status);
+
+        const orderDate = document.createElement('p');
+        orderDate.textContent = `Fecha: ${new Date(order.fecha).toLocaleString()}`;
+        orderItem.appendChild(orderDate);
+
+        const orderProductLink = document.createElement('a');
+        orderProductLink.href = `actualiza_pedido_admin.html?id=${order.id}`;
+        orderProductLink.textContent = 'Modificar pedido';
+        orderProductLink.className = 'product-link';
+        orderItem.appendChild(orderProductLink);
+
+        orderList.appendChild(orderItem);
+    });
 }
