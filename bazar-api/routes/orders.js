@@ -98,6 +98,24 @@ router.delete('/:id', verificarToken, async (req, res) => {
     const { id } = req.params;
 
     try {
+        // Verificar el estado del pedido
+        const [pedido] = await req.db.execute('SELECT producto_id, estado FROM pedidos WHERE id = ?', [id]);
+
+        if (pedido.length === 0) {
+            return res.status(404).json({ error: 'Pedido no encontrado' });
+        }
+
+        const producto_id = pedido[0].producto_id;
+
+        if (pedido[0].estado === 'cancelado') {
+            // Si el estado es "cancelado", actualizar el estado del producto a disponible
+            await req.db.execute('UPDATE productos SET estado = "disponible" WHERE id = ?', [producto_id]);
+        } else {
+            // Si el estado no es "cancelado", actualizar el estado del producto a vendido
+            await req.db.execute('UPDATE productos SET estado = "vendido" WHERE id = ?', [producto_id]);
+        }
+
+        // Eliminar el pedido
         const [result] = await req.db.execute('DELETE FROM pedidos WHERE id = ?', [id]);
 
         if (result.affectedRows === 0) {
