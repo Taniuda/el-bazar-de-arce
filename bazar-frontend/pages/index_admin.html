@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <h1>Administra la tienda</h1>
+    <h1>Administra el Bazar De Arce</h1>
 
     <!-- Tab Panel -->
     <div class="tab-container">
@@ -18,6 +18,10 @@
         <div class="tab" data-tab="mis-pedidos">
             <img src="../bazar-frontend/resources/carrito_no_seleccionado.svg" alt="Mis Pedidos" class="tab-image">
             Mis Pedidos
+        </div>
+        <div class="tab" data-tab="estadisticas">
+            <img src="../bazar-frontend/resources/estadisticas.svg" alt="Estadisticas" class="tab-image">
+            Estadisticas
         </div>
         <div class="tab" data-tab="mi-cuenta">
             <img src="../bazar-frontend/resources/cuenta_no_seleccionado.svg" alt="Mi Cuenta" class="tab-image">
@@ -36,12 +40,48 @@
             <div id="pagination" class="pagination"></div>
         </div>
     </div>
+
     <div id="mis-pedidos" class="tab-content">
         <div class="container">
             <h1>Pedidos</h1>
             <div id="orderList" class="product-list"></div>
         </div>
     </div>
+
+    <div id="estadisticas" class="tab-content">
+        <div class="container">
+            <h1>Estadísticas</h1>
+            <div class="estadisticas-section">
+                <h2>Ventas:</h2>
+                <p>Número de ventas: <span id="num-ventas"></span></p>
+                <p>Dinero total de ventas: $<span id="total-ventas"></span></p>
+            </div>
+    
+            <div class="estadisticas-section">
+                <h2>Productos:</h2>
+                <p>Total de productos: <span id="total-productos"></span></p>
+                <p>Productos disponibles: <span id="productos-disponibles"></span></p>
+                <p>Productos apartados: <span id="productos-apartados"></span></p>
+                <p>Productos vendidos: <span id="productos-vendidos"></span></p>
+            </div>
+    
+            <div class="estadisticas-section">
+                <h2>Pedidos:</h2>
+                <p>Total de pedidos: <span id="total-pedidos"></span></p>
+                <p>Pedidos pendientes: <span id="pedidos-pendientes"></span></p>
+                <p>Pedidos pagados: <span id="pedidos-pagados"></span></p>
+                <p>Pedidos enviados: <span id="pedidos-enviados"></span></p>
+                <p>Pedidos entregados: <span id="pedidos-entregados"></span></p>
+                <p>Pedidos cancelados: <span id="pedidos-cancelados"></span></p>
+            </div>
+    
+            <div class="estadisticas-section">
+                <h2>Usuarios:</h2>
+                <p>Cantidad de usuarios: <span id="cantidad-usuarios"></span></p>
+            </div>
+        </div>
+    </div>
+    
     <div id="mi-cuenta" class="tab-content">
         <h2>Mi Cuenta</h2>
         <h3>Hola</h3>
