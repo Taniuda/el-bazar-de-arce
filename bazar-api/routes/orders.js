@@ -3,6 +3,34 @@ const { verificarToken } = require('../routes/middleware');
 const db = require('../db');
 const router = express.Router();
 
+// Ruta para obtener estadísticas de pedidos
+router.get('/stats', verificarToken, async (req, res) => {
+    try {
+        const [numeroVentasResult] = await req.db.execute('SELECT COUNT(*) AS numero_ventas FROM pedidos WHERE estado = "entregado"');
+        const [totalVentasResult] = await req.db.execute('SELECT SUM(total) AS total_ventas FROM pedidos WHERE estado = "entregado"');
+        const [totalPedidosResult] = await req.db.execute('SELECT COUNT(*) AS total_pedidos FROM pedidos');
+        const [pedidosPendientesResult] = await req.db.execute('SELECT COUNT(*) AS pedidos_pendientes FROM pedidos WHERE estado = "pendiente"');
+        const [pedidosPagadosResult] = await req.db.execute('SELECT COUNT(*) AS pedidos_pagados FROM pedidos WHERE estado = "pagado"');
+        const [pedidosEnviadosResult] = await req.db.execute('SELECT COUNT(*) AS pedidos_enviados FROM pedidos WHERE estado = "enviado"');
+        const [pedidosEntregadosResult] = await req.db.execute('SELECT COUNT(*) AS pedidos_entregados FROM pedidos WHERE estado = "entregado"');
+        const [pedidosCanceladosResult] = await req.db.execute('SELECT COUNT(*) AS pedidos_cancelados FROM pedidos WHERE estado = "cancelado"');
+
+        res.json({
+            numero_ventas: numeroVentasResult[0].numero_ventas,
+            total_ventas: totalVentasResult[0].total_ventas,
+            total_pedidos: totalPedidosResult[0].total_pedidos,
+            pedidos_pendientes: pedidosPendientesResult[0].pedidos_pendientes,
+            pedidos_pagados: pedidosPagadosResult[0].pedidos_pagados,
+            pedidos_enviados: pedidosEnviadosResult[0].pedidos_enviados,
+            pedidos_entregados: pedidosEntregadosResult[0].pedidos_entregados,
+            pedidos_cancelados: pedidosCanceladosResult[0].pedidos_cancelados
+        });
+    } catch (error) {
+        console.error('Error al obtener las estadísticas de pedidos:', error);
+        res.status(500).json({ error: 'Error al obtener las estadísticas de pedidos' });
+    }
+});
+
 // Ruta para realizar una compra
 router.post('/', verificarToken, async (req, res) => {
     const { producto_id, total } = req.body;
@@ -80,13 +108,26 @@ router.put('/:id', verificarToken, async (req, res) => {
 
     try {
         // Actualizar el estado del pedido
-        const [result] = await req.db.execute('UPDATE pedidos SET estado = ? WHERE id = ?', [estado, id]);
+        const [updatePedidoResult] = await req.db.execute('UPDATE pedidos SET estado = ? WHERE id = ?', [estado, id]);
 
-        if (result.affectedRows === 0) {
+        if (updatePedidoResult.affectedRows === 0) {
             return res.status(404).json({ error: 'Pedido no encontrado' });
         }
 
-        res.json({ message: 'Estado del pedido actualizado con éxito' });
+        // Obtener producto_id del pedido
+        const [pedido] = await req.db.execute('SELECT producto_id FROM pedidos WHERE id = ?', [id]);
+
+        if (pedido.length === 0) {
+            return res.status(404).json({ error: 'Pedido no encontrado' });
+        }
+
+        const producto_id = pedido[0].producto_id;
+
+        // Actualizar estado del producto
+        let nuevoEstadoProducto = estado === 'pendiente' ? 'apartado' : 'vendido';
+        await req.db.execute('UPDATE productos SET estado = ? WHERE id = ?', [nuevoEstadoProducto, producto_id]);
+
+        res.json({ message: 'Estado del pedido y del producto actualizados con éxito' });
     } catch (error) {
         console.error('Error al actualizar el estado del pedido:', error);
         res.status(500).json({ error: 'Error al actualizar el estado del pedido' });
