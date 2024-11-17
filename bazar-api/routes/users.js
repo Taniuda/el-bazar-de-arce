@@ -17,4 +17,18 @@ router.get('/me', verificarToken, async (req, res) => {
     }
 });
 
+// Ruta para obtener la cantidad de usuarios
+router.get('/stats', verificarToken, async (req, res) => {
+    try {
+        const [cantidadUsuariosResult] = await req.db.execute('SELECT COUNT(*) AS cantidad_usuarios FROM usuarios');
+        
+        res.json({
+            cantidad_usuarios: cantidadUsuariosResult[0].cantidad_usuarios
+        });
+    } catch (error) {
+        console.error('Error al obtener la cantidad de usuarios:', error);
+        res.status(500).json({ error: 'Error al obtener la cantidad de usuarios' });
+    }
+});
+
 module.exports = router;
