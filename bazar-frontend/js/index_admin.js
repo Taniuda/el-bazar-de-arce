@@ -49,6 +49,48 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error al obtener los pedidos:', error);
     }
 
+    //----------Obtencion de estadisticas---------------------
+    try {
+        // Fetch productos statistics
+        response = await fetch('http://localhost:3001/api/products/stats', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        let productos = await response.json();
+        document.getElementById('total-productos').textContent = productos.total_productos;
+        document.getElementById('productos-disponibles').textContent = productos.productos_disponibles;
+        document.getElementById('productos-apartados').textContent = productos.productos_apartados;
+        document.getElementById('productos-vendidos').textContent = productos.productos_vendidos;
+
+        // Fetch pedidos statistics
+        response = await fetch('http://localhost:3001/api/orders/stats', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        let pedidos = await response.json();
+        document.getElementById('num-ventas').textContent = pedidos.numero_ventas;
+        document.getElementById('total-ventas').textContent = pedidos.total_ventas;
+        document.getElementById('total-pedidos').textContent = pedidos.total_pedidos;
+        document.getElementById('pedidos-pendientes').textContent = pedidos.pedidos_pendientes;
+        document.getElementById('pedidos-pagados').textContent = pedidos.pedidos_pagados;
+        document.getElementById('pedidos-enviados').textContent = pedidos.pedidos_enviados;
+        document.getElementById('pedidos-entregados').textContent = pedidos.pedidos_entregados;
+        document.getElementById('pedidos-cancelados').textContent = pedidos.pedidos_cancelados;
+
+        // Fetch usuarios statistics
+        response = await fetch('http://localhost:3001/api/user/stats', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        let usuarios = await response.json();
+        document.getElementById('cantidad-usuarios').textContent = usuarios.cantidad_usuarios;
+    } catch (error) {
+        console.error('Error al obtener las estadísticas:', error);
+        alert('Error al obtener las estadísticas');
+    }
 });
 
 //------------------Mostrar productos y paginacion--------------------
