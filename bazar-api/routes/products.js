@@ -6,6 +6,26 @@ const path = require('path');
 const fs = require('fs');
 const router = express.Router();
 
+// Ruta para obtener estadísticas de productos
+router.get('/stats', verificarToken, verificarAdministrador, async (req, res) => {
+    try {
+        const [totalProductosResult] = await req.db.execute('SELECT COUNT(*) AS total_productos FROM productos');
+        const [productosDisponiblesResult] = await req.db.execute('SELECT COUNT(*) AS productos_disponibles FROM productos WHERE estado = "disponible"');
+        const [productosApartadosResult] = await req.db.execute('SELECT COUNT(*) AS productos_apartados FROM productos WHERE estado = "apartado"');
+        const [productosVendidosResult] = await req.db.execute('SELECT COUNT(*) AS productos_vendidos FROM productos WHERE estado = "vendido"');
+
+        res.json({
+            total_productos: totalProductosResult[0].total_productos,
+            productos_disponibles: productosDisponiblesResult[0].productos_disponibles,
+            productos_apartados: productosApartadosResult[0].productos_apartados,
+            productos_vendidos: productosVendidosResult[0].productos_vendidos
+        });
+    } catch (error) {
+        console.error('Error al obtener las estadísticas de productos:', error);
+        res.status(500).json({ error: 'Error al obtener las estadísticas de productos' });
+    }
+});
+
 // Configurar almacenamiento de multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
