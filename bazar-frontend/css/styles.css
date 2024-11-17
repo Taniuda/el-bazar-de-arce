@@ -245,6 +245,14 @@ img {
     content: url('../resources/cuenta_seleccionado.svg');
 }
 
+.tab[data-tab="estadisticas"] img {
+    content: url('../resources/estadisticas.svg');
+}
+
+.tab[data-tab="estadisticas"].active img {
+    content: url('../resources/estadisticas_activo.svg');
+}
+
 .tab-content { 
     display: none; 
 } 
@@ -707,4 +715,28 @@ select {
     background-color: #ffe17d;
     padding: 5px;
     border-radius: 3px;
+}
+
+.estadisticas-section {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.estadisticas-section h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.estadisticas-section p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.estadisticas-section span {
+    font-weight: bold;
+    color: #333;
 }
